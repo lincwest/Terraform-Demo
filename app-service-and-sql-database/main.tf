@@ -1,10 +1,10 @@
-resource "azurerm_resource_group" "RG-Terraform" {
-  name     = "terraform-resource-group"
+resource "azurerm_resource_group" "RG_terraform" {
+  name     = "resourcegroup-tf"
   location = "West Europe"
 }
 
-resource "azurerm_app_service_plan" "ASP-TerraForm" {
-  name                = "terraform-appserviceplan"
+resource "azurerm_app_service_plan" "ASP_terraForm" {
+  name                = "appserviceplan-tf"
   location            = azurerm_resource_group.RG-Terraform.location
   resource_group_name = azurerm_resource_group.RG-Terraform.name
 
@@ -14,8 +14,8 @@ resource "azurerm_app_service_plan" "ASP-TerraForm" {
   }
 }
 
-resource "azurerm_app_service" "AS-Terraform" {
-  name                = "app-service-terraform"
+resource "azurerm_app_service" "AS_terraform" {
+  name                = "appservice-tf"
   location            = azurerm_resource_group.RG-Terraform.location
   resource_group_name = azurerm_resource_group.RG-Terraform.name
   app_service_plan_id = azurerm_app_service_plan.ASP-TerraForm.id
@@ -36,17 +36,17 @@ resource "azurerm_app_service" "AS-Terraform" {
   }
 }
 
-resource "azurerm_sql_server" "terraform-sqlserver" {
-  name                         = "terraform-sqlserver"
+resource "azurerm_sql_server" "sqlserver_terraform" {
+  name                         = "sqlserver-tf"
   resource_group_name          = azurerm_resource_group.RG-Terraform.name
   location                     = azurerm_resource_group.RG-Terraform.location
   version                      = "12.0"
-  administrator_login          = "houssem"
+  administrator_login          = "lincwest"
   administrator_login_password = "4-v3ry-53cr37-p455w0rd"
 }
 
-resource "azurerm_sql_database" "terraform-sqldatabase" {
-  name                = "terraform-sqldatabase"
+resource "azurerm_sql_database" "sqldatabase_terraform" {
+  name                = "sqldatabase-tf"
   resource_group_name = azurerm_resource_group.RG-Terraform.name
   location            = azurerm_resource_group.RG-Terraform.location
   server_name         = azurerm_sql_server.terraform-sqlserver.name

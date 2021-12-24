@@ -14,12 +14,12 @@ provider "azurerm" {
 }
 
 resource "azurerm_resource_group" "resource_group_terraform" {
-  name     = "terraform_resource_group_4"
+  name     = "resourcegroup-tf-4"
   location = "West Europe"
 }
 
 resource "azurerm_app_service_plan" "app_service_plan_terraform" {
-  name                = "terraform-appserviceplan"
+  name                = "appserviceplan-terraform"
   location            = azurerm_resource_group.resource_group_terraform.location
   resource_group_name = azurerm_resource_group.resource_group_terraform.name
 
@@ -30,7 +30,7 @@ resource "azurerm_app_service_plan" "app_service_plan_terraform" {
 }
 
 resource "azurerm_app_service" "app_service_terraform" {
-  name                = "app-service-terraform-houssem-4"
+  name                = "appservice-terraform-4"
   location            = azurerm_resource_group.resource_group_terraform.location
   resource_group_name = azurerm_resource_group.resource_group_terraform.name
   app_service_plan_id = azurerm_app_service_plan.app_service_plan_terraform.id

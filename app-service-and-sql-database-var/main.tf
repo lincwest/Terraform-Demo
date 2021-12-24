@@ -1,12 +1,12 @@
-resource "azurerm_resource_group" "RG-Terraform" {
-  name     = "terraform-resource-group"
+resource "azurerm_resource_group" "RG_Terraform" {
+  name     = "resourcegroup-tf"
   location = "West Europe"
 }
 
-resource "azurerm_app_service_plan" "ASP-TerraForm" {
-  name                = "terraform-appserviceplan"
-  location            = azurerm_resource_group.RG-Terraform.location
-  resource_group_name = azurerm_resource_group.RG-Terraform.name
+resource "azurerm_app_service_plan" "ASP_TerraForm" {
+  name                = "appserviceplan-tf"
+  location            = azurerm_resource_group.RG_Terraform.location
+  resource_group_name = azurerm_resource_group.RG_Terraform.name
 
   sku {
     tier = "Standard"
@@ -14,11 +14,11 @@ resource "azurerm_app_service_plan" "ASP-TerraForm" {
   }
 }
 
-resource "azurerm_app_service" "AS-Terraform" {
-  name                = "app-service-terraform"
-  location            = azurerm_resource_group.RG-Terraform.location
-  resource_group_name = azurerm_resource_group.RG-Terraform.name
-  app_service_plan_id = azurerm_app_service_plan.ASP-TerraForm.id
+resource "azurerm_app_service" "AS_Terraform" {
+  name                = "appservice-tf"
+  location            = azurerm_resource_group.RG_Terraform.location
+  resource_group_name = azurerm_resource_group.RG_Terraform.name
+  app_service_plan_id = azurerm_app_service_plan.ASP_TerraForm.id
 
   site_config {
     dotnet_framework_version = "v4.0"
@@ -37,18 +37,18 @@ resource "azurerm_app_service" "AS-Terraform" {
 }
 
 resource "azurerm_sql_server" "test" {
-  name                         = "terraform-sqlserver"
-  resource_group_name          = azurerm_resource_group.RG-Terraform.name
-  location                     = azurerm_resource_group.RG-Terraform.location
+  name                         = "sqlserver-tf"
+  resource_group_name          = azurerm_resource_group.RG_Terraform.name
+  location                     = azurerm_resource_group.RG_Terraform.location
   version                      = "12.0"
-  administrator_login          = "houssem"
+  administrator_login          = "lincwest"
   administrator_login_password = "4-v3ry-53cr37-p455w0rd"
 }
 
 resource "azurerm_sql_database" "test" {
-  name                = "terraform-sqldatabase"
-  resource_group_name = azurerm_resource_group.RG-Terraform.name
-  location            = azurerm_resource_group.RG-Terraform.location
+  name                = "sqldatabase-tf"
+  resource_group_name = azurerm_resource_group.RG_Terraform.name
+  location            = azurerm_resource_group.RG_Terraform.location
   server_name         = azurerm_sql_server.test.name
 
   tags = {
